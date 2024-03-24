@@ -56,28 +56,28 @@ class CadastroAtletas:
         except FileNotFoundError:
             print("Arquivo não encontrado.")
 
-# Função para adicionar um novo atleta
+# Adicionar um novo atleta
 def adicionar_novo_atleta(cadastro):
     nome = input("Digite o nome do atleta: ")
     idade = int(input("Digite a idade do atleta: "))
     nacionalidade = input("Digite a nacionalidade do atleta: ")
-    grupo = input("Digite o grupo do atleta (ex: Atletismo, Ginástica, Judô): ")
+    grupo = input("Digite o grupo que atleta está (ex: 1, 2, 3): ")
     novo_atleta = Atleta(nome, idade, nacionalidade, grupo)
     cadastro.adicionar_atleta(novo_atleta)
     print("Atleta adicionado com sucesso!")
 
-# Função para atualizar a idade de um atleta
+# Atualizar a idade de um atleta
 def atualizar_idade_atleta(cadastro):
     nome = input("Digite o nome do atleta que deseja atualizar a idade: ")
     nova_idade = int(input("Digite a nova idade do atleta: "))
     cadastro.atualizar_atleta(nome, nova_idade)
 
-# Função para deletar um atleta
+# Deletar um atleta
 def deletar_atleta(cadastro):
     nome = input("Digite o nome do atleta que deseja deletar: ")
     cadastro.deletar_atleta(nome)
 
-# Função principal
+# Main
 def main():
     nome_arquivo = "atletas.txt"
     cadastro = CadastroAtletas()
