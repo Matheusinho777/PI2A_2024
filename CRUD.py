@@ -22,14 +22,6 @@ class CadastroAtletas:
                 return atleta
         return None
 
-    def atualizar_atleta(self, nome, nova_idade):
-        atleta = self.buscar_atleta(nome)
-        if atleta:
-            atleta.idade = nova_idade
-            print("Atleta atualizado com sucesso!")
-        else:
-            print("Atleta não encontrado.")
-
     def deletar_atleta(self, nome):
         atleta = self.buscar_atleta(nome)
         if atleta:
@@ -66,12 +58,6 @@ def adicionar_novo_atleta(cadastro):
     cadastro.adicionar_atleta(novo_atleta)
     print("Atleta adicionado com sucesso!")
 
-# Atualizar a idade de um atleta
-def atualizar_idade_atleta(cadastro):
-    nome = input("Digite o nome do atleta que deseja atualizar a idade: ")
-    nova_idade = int(input("Digite a nova idade do atleta: "))
-    cadastro.atualizar_atleta(nome, nova_idade)
-
 # Deletar um atleta
 def deletar_atleta(cadastro):
     nome = input("Digite o nome do atleta que deseja deletar: ")
@@ -86,9 +72,8 @@ def main():
         print("\n### MENU ###")
         print("1. Adicionar Atleta")
         print("2. Listar Atletas")
-        print("3. Atualizar Idade de Atleta")
-        print("4. Deletar Atleta")
-        print("5. Salvar e Sair")
+        print("3. Deletar Atleta")
+        print("4. Salvar e Sair")
 
         opcao = input("\nDigite o número da opção desejada: ")
 
@@ -97,10 +82,8 @@ def main():
         elif opcao == "2":
             cadastro.listar_atletas()
         elif opcao == "3":
-            atualizar_idade_atleta(cadastro)
-        elif opcao == "4":
             deletar_atleta(cadastro)
-        elif opcao == "5":
+        elif opcao == "4":
             cadastro.salvar_atletas(nome_arquivo)
             print("Dados dos atletas salvos.")
             print("Saindo...")
