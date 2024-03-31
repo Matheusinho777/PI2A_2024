@@ -30,6 +30,17 @@ class CadastroAtletas:
         else:
             print("Atleta não encontrado.")
 
+    def atualizar_atleta(self, nome, novo_nome, nova_idade, nova_nacionalidade, novo_grupo):
+        atleta = self.buscar_atleta(nome)
+        if atleta:
+            atleta.nome = novo_nome
+            atleta.idade = nova_idade
+            atleta.nacionalidade = nova_nacionalidade
+            atleta.grupo = novo_grupo
+            print("Atleta atualizado com sucesso!")
+        else:
+            print("Atleta não encontrado.")
+
     def salvar_atletas(self, nome_arquivo):
         with open(nome_arquivo, "w") as arquivo:
             for atleta in self.atletas:
@@ -63,6 +74,15 @@ def deletar_atleta(cadastro):
     nome = input("Digite o nome do atleta que deseja deletar: ")
     cadastro.deletar_atleta(nome)
 
+# Atualizar dados de um atleta
+def atualizar_atleta(cadastro):
+    nome = input("Digite o nome do atleta que deseja atualizar: ")
+    novo_nome = input("Digite o novo nome do atleta: ")
+    nova_idade = int(input("Digite a nova idade do atleta: "))
+    nova_nacionalidade = input("Digite a nova nacionalidade do atleta: ")
+    novo_grupo = input("Digite o novo grupo que atleta está (ex: 1, 2, 3): ")
+    cadastro.atualizar_atleta(nome, novo_nome, nova_idade, nova_nacionalidade, novo_grupo)
+
 # Main
 def main():
     nome_arquivo = "atletas.txt"
@@ -73,7 +93,8 @@ def main():
         print("1. Adicionar Atleta")
         print("2. Listar Atletas")
         print("3. Deletar Atleta")
-        print("4. Salvar e Sair")
+        print("4. Atualizar Atleta")
+        print("5. Salvar e Sair")
 
         opcao = input("\nDigite o número da opção desejada: ")
 
@@ -84,6 +105,8 @@ def main():
         elif opcao == "3":
             deletar_atleta(cadastro)
         elif opcao == "4":
+            atualizar_atleta(cadastro)
+        elif opcao == "5":
             cadastro.salvar_atletas(nome_arquivo)
             print("Dados dos atletas salvos.")
             print("Saindo...")
