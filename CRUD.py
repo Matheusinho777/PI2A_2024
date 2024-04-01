@@ -1,9 +1,9 @@
 class Atleta:
-    def __init__(self, nome, idade, nacionalidade, grupo):
+    def __init__(self, nome, idade, nacionalidade, colocacao):
         self.nome = nome
         self.idade = idade
         self.nacionalidade = nacionalidade
-        self.grupo = grupo
+        self.colocacao = colocacao
 
 class CadastroAtletas:
     def __init__(self):
@@ -13,8 +13,9 @@ class CadastroAtletas:
         self.atletas.append(atleta)
 
     def listar_atletas(self):
-        for idx, atleta in enumerate(self.atletas, start=1):
-            print(f"{idx}. Nome: {atleta.nome}, Idade: {atleta.idade}, Nacionalidade: {atleta.nacionalidade}, Grupo: {atleta.grupo}")
+        colocacao_atletas = sorted(self.atletas, key=lambda atleta: atleta.colocacao)
+        for idx, atleta in enumerate(colocacao_atletas, start=1):
+            print(f"{idx}º Colocado - Nome: {atleta.nome}, Idade: {atleta.idade}, Nacionalidade: {atleta.nacionalidade}, Colocação: {atleta.colocacao}")
 
     def buscar_atleta(self, nome):
         for atleta in self.atletas:
@@ -30,13 +31,13 @@ class CadastroAtletas:
         else:
             print("Atleta não encontrado.")
 
-    def atualizar_atleta(self, nome, novo_nome, nova_idade, nova_nacionalidade, novo_grupo):
+    def atualizar_atleta(self, nome, novo_nome, nova_idade, nova_nacionalidade, nova_colocacao):
         atleta = self.buscar_atleta(nome)
         if atleta:
             atleta.nome = novo_nome
             atleta.idade = nova_idade
             atleta.nacionalidade = nova_nacionalidade
-            atleta.grupo = novo_grupo
+            atleta.colocacao = nova_colocacao
             print("Atleta atualizado com sucesso!")
         else:
             print("Atleta não encontrado.")
@@ -44,7 +45,7 @@ class CadastroAtletas:
     def salvar_atletas(self, nome_arquivo):
         with open(nome_arquivo, "w") as arquivo:
             for atleta in self.atletas:
-                arquivo.write(f"{atleta.nome},{atleta.idade},{atleta.nacionalidade},{atleta.grupo}\n")
+                arquivo.write(f"{atleta.nome},{atleta.idade},{atleta.nacionalidade},{atleta.colocacao}\n")
 
     def carregar_atletas(self, nome_arquivo):
         self.atletas = []
@@ -54,36 +55,32 @@ class CadastroAtletas:
                 for linha in linhas:
                     dados = linha.strip().split(",")
                     if len(dados) == 4:
-                        nome, idade, nacionalidade, grupo = dados
-                        self.adicionar_atleta(Atleta(nome, int(idade), nacionalidade, grupo))
+                        nome, idade, nacionalidade, colocacao = dados
+                        self.adicionar_atleta(Atleta(nome, int(idade), nacionalidade, colocacao))
         except FileNotFoundError:
             print("Arquivo não encontrado.")
 
-# Adicionar um novo atleta
 def adicionar_novo_atleta(cadastro):
     nome = input("Digite o nome do atleta: ")
     idade = int(input("Digite a idade do atleta: "))
     nacionalidade = input("Digite a nacionalidade do atleta: ")
-    grupo = input("Digite o grupo que atleta está (ex: 1, 2, 3): ")
-    novo_atleta = Atleta(nome, idade, nacionalidade, grupo)
+    colocacao = input("Digite a colocação do atleta (ex: 1º, 2º, 3º): ")
+    novo_atleta = Atleta(nome, idade, nacionalidade, colocacao)
     cadastro.adicionar_atleta(novo_atleta)
     print("Atleta adicionado com sucesso!")
 
-# Deletar um atleta
 def deletar_atleta(cadastro):
     nome = input("Digite o nome do atleta que deseja deletar: ")
     cadastro.deletar_atleta(nome)
 
-# Atualizar dados de um atleta
 def atualizar_atleta(cadastro):
     nome = input("Digite o nome do atleta que deseja atualizar: ")
     novo_nome = input("Digite o novo nome do atleta: ")
     nova_idade = int(input("Digite a nova idade do atleta: "))
     nova_nacionalidade = input("Digite a nova nacionalidade do atleta: ")
-    novo_grupo = input("Digite o novo grupo que atleta está (ex: 1, 2, 3): ")
-    cadastro.atualizar_atleta(nome, novo_nome, nova_idade, nova_nacionalidade, novo_grupo)
+    nova_colocacao = input("Digite a nova colocação do atleta (ex: 1º, 2º, 3º): ")
+    cadastro.atualizar_atleta(nome, novo_nome, nova_idade, nova_nacionalidade, nova_colocacao)
 
-# Main
 def main():
     nome_arquivo = "atletas.txt"
     cadastro = CadastroAtletas()
@@ -91,7 +88,7 @@ def main():
     while True:
         print("\n### MENU ###")
         print("1. Adicionar Atleta")
-        print("2. Listar Atletas")
+        print("2. Classificação dos Atletas")
         print("3. Deletar Atleta")
         print("4. Atualizar Atleta")
         print("5. Salvar e Sair")
