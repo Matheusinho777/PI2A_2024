@@ -1,0 +1,29 @@
+
+class Atleta:
+    def __init__(self, nome):
+        self.nome = nome
+        self.pontuacao = 0  
+
+
+def fase_classificacao(atletas):
+    for atleta in atletas:
+        
+        pontuacao = int(input(f"Insira a pontuação de {atleta.nome}: "))
+        atleta.pontuacao = pontuacao
+    atletas.sort(key=lambda x: x.pontuacao, reverse=True)  
+    chaveamento = [(atletas[i], atletas[-i-1]) for i in range(len(atletas)//2)]  
+    equipes = [atletas[i:i+4] for i in range(0, len(atletas), 4)]  
+    duplas_mistas = [(atletas[i], atletas[-i-1]) for i in range(8)]  
+    return chaveamento, equipes, duplas_mistas
+
+
+def main():
+    
+    atletas = [Atleta(f"Atleta {i+1}") for i in range(64)]
+    chaveamento, equipes, duplas_mistas = fase_classificacao(atletas)
+    print("Fase de Classificação:")
+    for i, (arqueiro1, arqueiro2) in enumerate(chaveamento, start=1):
+        print(f"Combate {i}: {arqueiro1.nome} vs {arqueiro2.nome}")
+
+if __name__ == "__main__":
+    main()
