@@ -1,3 +1,4 @@
+import pymysql
 class Atleta:
     def __init__(self, nome, idade, nacionalidade, colocacao):
         self.nome = nome
@@ -42,10 +43,16 @@ class CadastroAtletas:
         else:
             print("Atleta não encontrado.")
 
-    def salvar_atletas(self, nome_arquivo):
-        with open(nome_arquivo, "w") as arquivo:
-            for atleta in self.atletas:
-                arquivo.write(f"{atleta.nome},{atleta.idade},{atleta.nacionalidade},{atleta.colocacao}\n")
+    def salvar_atletas(self, connection):
+        try:
+            with connection.cursor() as cursor:
+                for atleta in self.atletas:
+                    sql = "INSERT INTO classificacao (nome, idade, nacionalidade, colocacao) VALUES (%s, %s, %s, %s)"
+                    cursor.execute(sql, (atleta.nome, atleta.idade, atleta.nacionalidade, atleta.colocacao))
+            connection.commit()
+            print("Dados dos atletas salvos no banco de dados.")
+        except pymysql.Error as e:
+            print(f"Erro ao salvar dados dos atletas: {e}")
 
     def carregar_atletas(self, nome_arquivo):
         self.atletas = []
@@ -59,6 +66,26 @@ class CadastroAtletas:
                         self.adicionar_atleta(Atleta(nome, int(idade), nacionalidade, colocacao))
         except FileNotFoundError:
             print("Arquivo não encontrado.")
+
+class classificaçãoAtleta:
+    def __init__(self, etapa, pontuacao, pontuacaoTiros,  ):
+        self.etapa = etapa
+        self.pontuacao = pontuacao
+        self.pontuacaoTiros = pontuacaoTiros
+
+    def tipo_etapa(self, etapa):
+        fase = input("Escolha qual fase o atleta está jogando: \n(1) Fase Classificatória\n(2) Fase Eliminatória")
+        if fase == "1":
+            self.etapa = "Classificatória"
+            print("Ok! vamos prosseguir com a etapa {}".format(self.etapa))
+        elif fase == "2":
+            self.etapa = "Eliminatória"
+            print("Ok! vamos prosseguir com a etapa {}".format(self.etapa))
+        else:
+            print("Digite uma opção válida de fase...")
+            return
+        return etapa
+
 
 def adicionar_novo_atleta(cadastro):
     nome = input("Digite o nome do atleta: ")
@@ -82,6 +109,15 @@ def atualizar_atleta(cadastro):
     cadastro.atualizar_atleta(nome, novo_nome, nova_idade, nova_nacionalidade, nova_colocacao)
 
 def main():
+    connection = pymysql.connect(
+        charset="utf8mb4",
+        cursorclass=pymysql.cursors.DictCursor,
+        db="defaultdb",
+        host="mysql-2480cbc6-iesb-pi2a2024.h.aivencloud.com",
+        password="AVNS_FhpJunTAM7Hz3pU4pIM",
+        port=22150,
+        user="avnadmin",
+    )
     nome_arquivo = "atletas.txt"
     cadastro = CadastroAtletas()
     cadastro.carregar_atletas(nome_arquivo)
@@ -104,7 +140,7 @@ def main():
         elif opcao == "4":
             atualizar_atleta(cadastro)
         elif opcao == "5":
-            cadastro.salvar_atletas(nome_arquivo)
+            cadastro.salvar_atletas(connection)
             print("Dados dos atletas salvos.")
             print("Saindo...")
             break
