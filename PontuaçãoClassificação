@@ -1,0 +1,63 @@
+class TiroComArco:
+    def __init__(self):
+        self.pontuacoes = []
+
+    def registrar_pontuacao(self, pontuacao):
+        self.pontuacoes.append(pontuacao)
+
+    def aplicar_penalidade(self):
+        if self.pontuacoes:
+            maior_pontuacao = max([p for p in self.pontuacoes if isinstance(p, int)])
+            for i in range(len(self.pontuacoes)):
+                if self.pontuacoes[i] == maior_pontuacao:
+                    self.pontuacoes[i] = "M"
+                    break
+
+    def exibir_pontuacoes(self):
+        for i, pontuacao in enumerate(self.pontuacoes, start=1):
+            print(f"Flecha {i}: {pontuacao}")
+
+    def calcular_soma_pontuacao(self):
+        return sum(p for p in self.pontuacoes if isinstance(p, int))
+
+tiro_com_arco = TiroComArco()
+numero_flechas = 72
+
+print(f"Por favor, insira a pontuação de cada uma das {numero_flechas} flechas atiradas:")
+
+for i in range(numero_flechas):
+    while True:
+        try:
+            pontuacao = int(input(f"Pontuação da flecha {i + 1}: "))
+            if pontuacao < 0 or pontuacao > 10:
+                raise ValueError("A pontuação deve ser um número entre 0 e 10.")
+            break
+        except ValueError as e:
+            print(f"Entrada inválida: {e}. Por favor, tente novamente.")
+    tiro_com_arco.registrar_pontuacao(pontuacao)
+
+print("\nPontuações registradas:")
+tiro_com_arco.exibir_pontuacoes()
+soma_inicial = tiro_com_arco.calcular_soma_pontuacao()
+print(f"Soma total das pontuações registradas: {soma_inicial}")
+
+resposta = input("\nO atleta recebeu um cartão vermelho? (s/n): ").strip().lower()
+
+if resposta == "s":
+    while True:
+        try:
+            quantidade_cartoes = int(input("\nQuantos cartões vermelhos o atleta recebeu? "))
+            if quantidade_cartoes < 0:
+                raise ValueError("A quantidade de cartões vermelhos deve ser um número não negativo.")
+            break
+        except ValueError as e:
+            print(f"Entrada inválida: {e}. Por favor, tente novamente.")
+
+    for _ in range(quantidade_cartoes):
+        print("\nAplicando a penalidade de cartão vermelho...")
+        tiro_com_arco.aplicar_penalidade()
+
+print("\nPontuações após aplicar as penalidades:")
+tiro_com_arco.exibir_pontuacoes()
+soma_final = tiro_com_arco.calcular_soma_pontuacao()
+print(f"Soma total das pontuações após aplicar as penalidades: {soma_final}")
