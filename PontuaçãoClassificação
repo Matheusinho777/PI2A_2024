@@ -61,3 +61,25 @@ print("\nPontuações após aplicar as penalidades:")
 tiro_com_arco.exibir_pontuacoes()
 soma_final = tiro_com_arco.calcular_soma_pontuacao()
 print(f"Soma total das pontuações após aplicar as penalidades: {soma_final}")
+
+connection = pymysql.connect(
+    charset="utf8mb4",
+    cursorclass=pymysql.cursors.DictCursor,
+    db="defaultdb",
+    host="mysql-2480cbc6-iesb-pi2a2024.h.aivencloud.com",
+    password="AVNS_FhpJunTAM7Hz3pU4pIM",
+    port=22150,
+    user="avnadmin",
+)
+
+try:
+    with connection.cursor() as cursor:
+        # Supondo que você tenha uma tabela chamada 'pontuacoes' com uma coluna 'soma_final'
+        sql = "INSERT INTO classificacao (soma_final) VALUES (%s)"
+        cursor.execute(sql, (soma_final,))
+    connection.commit()
+    print("Pontuação enviada com sucesso para o servidor.")
+except pymysql.Error as e:
+    print(f"Erro ao enviar pontuação para o servidor MySQL: {e}")
+finally:
+    connection.close()
