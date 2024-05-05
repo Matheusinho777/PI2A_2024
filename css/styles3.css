@@ -1,0 +1,50 @@
+body {
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header, .content {
+    width: 100%;
+}
+
+.header {
+    height: 100px; /* Defina a altura desejada */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-rectangle, .middle-rectangle, .bottom-square {
+    width: 80%; /* Ajuste conforme necessário */
+    height: 200px; /* Ajuste conforme necessário */
+    background-color: white;
+    margin-bottom: 20px; /* Ajuste conforme necessário */
+}
+
+.info-box {
+    text-align: center;
+}
+
+.confirm-button {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
