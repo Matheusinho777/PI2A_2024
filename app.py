@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template
 import pymysql
 
 app = Flask(__name__)
@@ -27,7 +27,7 @@ def buscar_dados_tabela():
 @app.route('/')
 def index():
     dados_tabela = buscar_dados_tabela()
-    return render_template('pagina1.html', dados_tabela=dados_tabela)
+    return jsonify(dados_tabela)  # Retorna os dados da tabela no formato JSON
 
 if __name__ == '__main__':
     app.run(debug=True)
