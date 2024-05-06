@@ -29,17 +29,19 @@
                 <th>Idade</th>
                 <th>Nacionalidade</th>
                 <th>Colocação</th>
+                <th>ID</th>
+                <th>Soma Final</th>
             </tr>
             {% for linha in dados_tabela %}
-<tr>
-    <td>{{ linha.nome }}</td>
-    <td>{{ linha.idade }}</td>
-    <td>{{ linha.nacionalidade }}</td>
-    <td>{{ linha.colocacao }}</td>
-    <td>{{ linha.ID }}</td>
-    <td>{{ linha.soma_final }}</td>
-</tr>
-{% endfor %}
+                <tr>
+                    <td>{{ linha.nome }}</td>
+                    <td>{{ linha.idade }}</td>
+                    <td>{{ linha.nacionalidade }}</td>
+                    <td>{{ linha.colocacao }}</td>
+                    <td>{{ linha.ID }}</td>
+                    <td>{{ linha.soma_final }}</td>
+                </tr>
+            {% endfor %}
         </table>
     </div>
 </body>
