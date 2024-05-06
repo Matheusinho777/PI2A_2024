@@ -19,7 +19,7 @@ def buscar_dados_tabela():
         with connection.cursor() as cursor:
             cursor.execute(query)
             results = cursor.fetchall()
-            print(results)  # Adicionando print para verificar os dados
+            print(results) 
         return results
     finally:
         connection.close() 
