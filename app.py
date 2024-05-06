@@ -1,58 +1,38 @@
 from flask import Flask, render_template
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 import pymysql
-import pandas as pd
 
 app = Flask(__name__)
 
-connection = pymysql.connect(
-    charset="utf8mb4",
-    cursorclass=pymysql.cursors.DictCursor,
-    db="defaultdb",
-    host="mysql-2480cbc6-iesb-pi2a2024.h.aivencloud.com",
-    password="AVNS_FhpJunTAM7Hz3pU4pIM",
-    port=22150,
-    user="avnadmin",
-)
+# Configurações do banco de dados
+db_config = {
+    'host': 'mysql-2480cbc6-iesb-pi2a2024.h.aivencloud.com',
+    'user': 'avnadmin',
+    'password': 'AVNS_FhpJunTAM7Hz3pU4pIM',
+    'database': 'defaultdb',
+    'charset': 'utf8mb4',
+    'cursorclass': pymysql.cursors.DictCursor
+}
 
+# Função para buscar os dados da tabela no banco de dados
+def buscar_dados_tabela():
+    connection = pymysql.connect(**db_config)
+    try:
+        with connection.cursor() as cursor:
+            # Execute a consulta SQL para obter os dados da tabela
+            cursor.execute("SELECT * FROM classificacao WHERE colocacao > 0 ORDER BY CAST(colocacao AS UNSIGNED) ASC")
+            # Recupere todos os resultados
+            results = cursor.fetchall()
+            return results
+    finally:
+        connection.close()
+
+# Rota para renderizar a página
 @app.route('/')
 def index():
-    query = "SELECT * FROM classificacao WHERE colocacao > 0 ORDER BY CAST(colocacao AS UNSIGNED) ASC"
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        results = cursor.fetchall()
+    # Busque os dados da tabela
+    dados_tabela = buscar_dados_tabela()
+    # Renderize o template e passe os dados da tabela para ele
+    return render_template('index.html', dados_tabela=dados_tabela)
 
-    df = pd.DataFrame(results)
-
-    fig = make_subplots(
-        rows=1, cols=1,
-        shared_xaxes=True,
-        vertical_spacing=0.03,
-        specs=[[{"type": "table"}]]
-    )
-
-    fig.add_trace(
-        go.Table(
-            header=dict(
-                values=df.columns,
-                font=dict(size=10),
-                align="left"
-            ),
-            cells=dict(
-                values=[df[k].tolist() for k in df.columns],
-                align="left")
-        ),
-        row=1, col=1
-    )
-
-    fig.update_layout(
-        height=800,
-        showlegend=False,
-        title_text="Tabela de Dados do Banco de Dados",
-    )
-
-    table_html = fig.to_html(full_html=False)
-
-    return render_template('index.html', table_html=table_html)
-
+if __name__ == '__main__':
+    app.run(debug=True)
