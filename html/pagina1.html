@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Exemplo</title>
+    <title>Tabela de Dados</title>
     <link rel="stylesheet" href="css/styles1.css">
 </head>
 <body>
@@ -18,11 +18,27 @@
             </div>
             <div class="middle-rectangle"></div>
             <div class="bottom-square"></div>
-            <div class="table-container">
-                {{ table_html | safe }}
-            </div>
             <button class="confirm-button">Confirmar</button>
         </div>
+    </div>
+
+    <div class="container">
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Nacionalidade</th>
+                <th>Colocação</th>
+            </tr>
+            {% for linha in dados_tabela %}
+            <tr>
+                <td>{{ linha.nome }}</td>
+                <td>{{ linha.idade }}</td>
+                <td>{{ linha.nacionalidade }}</td>
+                <td>{{ linha.colocacao }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 </body>
 </html>
