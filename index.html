@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionamento com Botões</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Escolha uma Opção:</h1>
+        <div class="button-group">
+            <a href="html/pagina1.html" class="button">Página 1</a>
+            <a href="html/pagina2.html" class="button">Página 2</a>
+            <a href="html/pagina3.html" class="button">Página 3</a>
+            <a href="html/pagina4.html" class="button">Página 4</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header"></div>
+        <div class="content">
+            <div class="main-rectangle">
+                <div class="info-box">
+                    <p>Informação 1</p>
+                    <p>Informação 2</p>
+                </div>
+            </div>
+            <div class="middle-rectangle"></div>
+            <div class="bottom-square"></div>
+            <button class="confirm-button" onclick="confirmar()">Confirmar</button>
+        </div>
+    </div>
+
+    <!-- Aqui será incluída a tabela gerada pelo Flask -->
+    <div class="container">
+        {{ table_html | safe }}
+    </div>
+
+    <script>
+        function confirmar() {
+            alert("Botão Confirmar clicado!");
+        }
+    </script>
+</body>
+</html>
