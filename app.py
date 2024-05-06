@@ -56,5 +56,3 @@ def index():
 
     return render_template('index.html', table_html=table_html)
 
-if __name__ == '__main__':
-    app.run(debug=True)
