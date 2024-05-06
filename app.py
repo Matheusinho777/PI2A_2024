@@ -26,7 +26,7 @@ def buscar_dados_tabela():
 @app.route('/')
 def index():
     dados_tabela = buscar_dados_tabela()
-    return render_template('index.html', dados_tabela=dados_tabela)
+    return render_template('pagina1.html', dados_tabela=dados_tabela)
 
 if __name__ == '__main__':
     app.run(debug=True)
