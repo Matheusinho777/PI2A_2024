@@ -20,14 +20,13 @@ def buscar_dados_tabela():
         with connection.cursor() as cursor:
             cursor.execute(query)
             results = cursor.fetchall()
-            return results
+            return jsonify(results)  # Retorna os dados da tabela no formato JSON
     finally:
         connection.close()
 
 @app.route('/')
 def index():
-    dados_tabela = buscar_dados_tabela()
-    return jsonify(dados_tabela)  # Retorna os dados da tabela no formato JSON
+    return buscar_dados_tabela()
 
 if __name__ == '__main__':
     app.run(debug=True)
