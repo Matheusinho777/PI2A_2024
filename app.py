@@ -9,6 +9,7 @@ db_config = {
     'password': 'AVNS_FhpJunTAM7Hz3pU4pIM',
     'database': 'defaultdb',
     'charset': 'utf8mb4',
+    'port': 22150,
     'cursorclass': pymysql.cursors.DictCursor
 }
 
@@ -19,14 +20,14 @@ def buscar_dados_tabela():
         with connection.cursor() as cursor:
             cursor.execute(query)
             results = cursor.fetchall()
-            print(results)  
-        return results
+            return results
     finally:
-        connection.close() 
+        connection.close()
 
 @app.route('/')
 def index():
-    return render_template('pagina1.html', dados_tabela=buscar_dados_tabela())
+    dados_tabela = buscar_dados_tabela()
+    return render_template('pagina1.html', dados_tabela=dados_tabela)
 
 if __name__ == '__main__':
     app.run(debug=True)
