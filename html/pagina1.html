@@ -24,25 +24,44 @@
 
     <div class="container">
         <table>
-            <tr>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Nacionalidade</th>
-                <th>Colocação</th>
-                <th>ID</th>
-                <th>Soma Final</th>
-            </tr>
-            {% for linha in dados_tabela %}
+            <thead>
                 <tr>
-                    <td>{{ linha.nome }}</td>
-                    <td>{{ linha.idade }}</td>
-                    <td>{{ linha.nacionalidade }}</td>
-                    <td>{{ linha.colocacao }}</td>
-                    <td>{{ linha.ID }}</td>
-                    <td>{{ linha.soma_final }}</td>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Nacionalidade</th>
+                    <th>Colocação</th>
+                    <th>ID</th>
+                    <th>Soma Final</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody id="corpo-tabela">
+                <!-- Aqui os dados serão adicionados dinamicamente com JavaScript -->
+            </tbody>
         </table>
     </div>
+
+    <script>
+        // Função para adicionar os dados recebidos do servidor à tabela
+        function adicionarDadosTabela(dados) {
+            var corpoTabela = document.getElementById('corpo-tabela');
+
+            dados.forEach(function(linha) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + linha.nome + '</td>' +
+                               '<td>' + linha.idade + '</td>' +
+                               '<td>' + linha.nacionalidade + '</td>' +
+                               '<td>' + linha.colocacao + '</td>' +
+                               '<td>' + linha.ID + '</td>' +
+                               '<td>' + linha.soma_final + '</td>';
+                corpoTabela.appendChild(tr);
+            });
+        }
+
+        // Chamada assíncrona para obter os dados do servidor
+        fetch('/') // Faz a chamada para a rota '/' definida no Flask
+            .then(response => response.json())
+            .then(data => adicionarDadosTabela(data))
+            .catch(error => console.error('Erro ao obter dados:', error));
+    </script>
 </body>
 </html>
