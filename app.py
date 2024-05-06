@@ -13,13 +13,11 @@ db_config = {
 }
 
 def buscar_dados_tabela():
-    connection = pymysql.connect(**db_config)
-    try:
-        with connection.cursor() as cursor:
-            # Execute a consulta SQL para obter os dados da tabela
-            cursor.execute("SELECT * FROM classificacao WHERE colocacao > 0 ORDER BY CAST(colocacao AS UNSIGNED) ASC")
-            # Recupere todos os resultados
-            results = cursor.fetchall()
+    query = "SELECT * FROM classificacao WHERE colocacao > 0 ORDER BY CAST(colocacao AS UNSIGNED) ASC"
+
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        results = cursor.fetchall()
             return results
     finally:
         connection.close()
