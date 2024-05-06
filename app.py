@@ -13,14 +13,15 @@ db_config = {
 }
 
 def buscar_dados_tabela():
-    query = "SELECT * FROM classificacao WHERE colocacao > 0 ORDER BY CAST(colocacao AS UNSIGNED) ASC"
-
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        results = cursor.fetchall()
-            return results
+    connection = pymysql.connect(**db_config)  
+    try:
+        query = "SELECT * FROM classificacao WHERE colocacao > 0 ORDER BY CAST(colocacao AS UNSIGNED) ASC"
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            results = cursor.fetchall()
+        return results
     finally:
-        connection.close()
+        connection.close() 
 
 @app.route('/')
 def index():
