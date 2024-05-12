@@ -1,0 +1,57 @@
+class PartidaTiroComArco:
+    def __init__(self, jogador1, jogador2):
+        self.jogador1 = jogador1
+        self.jogador2 = jogador2
+
+    def registrar_pontos(self, jogador, pontos):
+        if pontos < 0 or pontos > 10:
+            print("Pontuação inválida. Os pontos devem estar entre 0 e 10.")
+            return
+        
+        if jogador == 1:
+            self.jogador1.registrar_pontos(pontos)
+        elif jogador == 2:
+            self.jogador2.registrar_pontos(pontos)
+        else:
+            print("Jogador inválido.")
+
+    def finalizar_partida(self):
+        pontuacao_jogador1 = self.jogador1.obter_pontuacao()
+        pontuacao_jogador2 = self.jogador2.obter_pontuacao()
+
+        print(f"Total de pontos do Jogador 1: {pontuacao_jogador1}")
+        print(f"Total de pontos do Jogador 2: {pontuacao_jogador2}")
+
+        if pontuacao_jogador1 > pontuacao_jogador2:
+            print("Jogador 1 venceu!")
+        elif pontuacao_jogador2 > pontuacao_jogador1:
+            print("Jogador 2 venceu!")
+        else:
+            print("A partida terminou em empate!")
+
+
+class Jogador:
+    def __init__(self, nome):
+        self.nome = nome
+        self.pontuacao = 0
+
+    def registrar_pontos(self, pontos):
+        self.pontuacao += pontos
+
+    def obter_pontuacao(self):
+        return self.pontuacao
+
+
+# Exemplo de uso do programa
+jogador1 = Jogador("Alice")
+jogador2 = Jogador("Bob")
+
+partida = PartidaTiroComArco(jogador1, jogador2)
+
+# Simulando disparo de setas e registro de pontos
+partida.registrar_pontos(1, 9)  # Jogador 1 faz 9 pontos
+partida.registrar_pontos(2, 7)  # Jogador 2 faz 7 pontos
+partida.registrar_pontos(1, 8)  # Jogador 1 faz mais 8 pontos
+
+# Finalizando a partida e exibindo resultados
+partida.finalizar_partida()
