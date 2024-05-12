@@ -19,13 +19,13 @@ class PartidaTiroComArco:
         pontuacao_jogador1 = self.jogador1.obter_pontuacao()
         pontuacao_jogador2 = self.jogador2.obter_pontuacao()
 
-        print(f"Total de pontos do Jogador 1: {pontuacao_jogador1}")
-        print(f"Total de pontos do Jogador 2: {pontuacao_jogador2}")
+        print(f"Total de pontos do Jogador 1 ({self.jogador1.nome}): {pontuacao_jogador1}")
+        print(f"Total de pontos do Jogador 2 ({self.jogador2.nome}): {pontuacao_jogador2}")
 
         if pontuacao_jogador1 > pontuacao_jogador2:
-            print("Jogador 1 venceu!")
+            print(f"Jogador {self.jogador1.nome} venceu!")
         elif pontuacao_jogador2 > pontuacao_jogador1:
-            print("Jogador 2 venceu!")
+            print(f"Jogador {self.jogador2.nome} venceu!")
         else:
             print("A partida terminou em empate!")
 
@@ -42,16 +42,34 @@ class Jogador:
         return self.pontuacao
 
 
-# Exemplo de uso do programa
-jogador1 = Jogador("Alice")
-jogador2 = Jogador("Bob")
+def main():
+    print("Bem-vindo à partida de tiro com arco!")
 
-partida = PartidaTiroComArco(jogador1, jogador2)
+    nome_jogador1 = input("Digite o nome do Jogador 1: ")
+    nome_jogador2 = input("Digite o nome do Jogador 2: ")
 
-# Simulando disparo de setas e registro de pontos
-partida.registrar_pontos(1, 9)  # Jogador 1 faz 9 pontos
-partida.registrar_pontos(2, 7)  # Jogador 2 faz 7 pontos
-partida.registrar_pontos(1, 8)  # Jogador 1 faz mais 8 pontos
+    jogador1 = Jogador(nome_jogador1)
+    jogador2 = Jogador(nome_jogador2)
 
-# Finalizando a partida e exibindo resultados
-partida.finalizar_partida()
+    partida = PartidaTiroComArco(jogador1, jogador2)
+
+    rodada = 1
+    while True:
+        print(f"\nRodada {rodada}:")
+        jogador = int(input(f"Qual jogador (1 para {nome_jogador1}, 2 para {nome_jogador2}): "))
+        pontos = int(input("Digite os pontos desta seta (0 a 10): "))
+
+        partida.registrar_pontos(jogador, pontos)
+
+        continuar = input("Deseja registrar mais pontos? (s/n): ")
+        if continuar.lower() != 's':
+            break
+
+        rodada += 1
+
+    print("\nFinalizando a partida...")
+    partida.finalizar_partida()
+
+
+if __name__ == "__main__":
+    main()
