@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partida de Tiro com Arco</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Partida de Tiro com Arco</h1>
+    
+    <div>
+        <label for="nomeJogador1">Nome do Jogador 1:</label>
+        <input type="text" id="nomeJogador1">
+    </div>
+    
+    <div>
+        <label for="nomeJogador2">Nome do Jogador 2:</label>
+        <input type="text" id="nomeJogador2">
+    </div>
+    
+    <div>
+        <label for="pontos">Pontos (0 a 10):</label>
+        <input type="number" id="pontos" min="0" max="10">
+    </div>
+    
+    <div>
+        <button onclick="registrarPontos(1)">Registrar Pontos para Jogador 1</button>
+        <button onclick="registrarPontos(2)">Registrar Pontos para Jogador 2</button>
+    </div>
+    
+    <div id="resultado"></div>
+
+    <script>
+        let pontuacaoJogador1 = 0;
+        let pontuacaoJogador2 = 0;
+
+        function registrarPontos(jogador) {
+            const pontos = parseInt(document.getElementById('pontos').value);
+
+            if (pontos < 0 || pontos > 10 || isNaN(pontos)) {
+                alert('Pontuação inválida. Os pontos devem estar entre 0 e 10.');
+                return;
+            }
+
+            if (jogador === 1) {
+                pontuacaoJogador1 += pontos;
+            } else if (jogador === 2) {
+                pontuacaoJogador2 += pontos;
+            }
+
+            document.getElementById('resultado').innerHTML = `
+                <p>Total de pontos do Jogador 1: ${pontuacaoJogador1}</p>
+                <p>Total de pontos do Jogador 2: ${pontuacaoJogador2}</p>
+                <p><strong>Vencedor: ${obterVencedor()}</strong></p>
+            `;
+        }
+
+        function obterVencedor() {
+            if (pontuacaoJogador1 > pontuacaoJogador2) {
+                return `Jogador 1 (${document.getElementById('nomeJogador1').value})`;
+            } else if (pontuacaoJogador2 > pontuacaoJogador1) {
+                return `Jogador 2 (${document.getElementById('nomeJogador2').value})`;
+            } else {
+                return 'Empate';
+            }
+        }
+    </script>
+</body>
+</html>
