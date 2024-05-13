@@ -6,40 +6,39 @@
     <title>Redirecionamento com Botões</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Escolha uma Opção:</h1>
-        <div class="button-group">
-            <a href="templates/pagina1.html" class="button">Página 1</a>
-            <a href="html/pagina2.html" class="button">Página 2</a>
-            <a href="PartidaFrontV1.html" class="button">Página 3 classificao</a>
-            <a href="html/pagina4.html" class="button">Página 4</a>
-        </div>
-    </div>
+<body class="page-border">
+    <button class="return-button" onclick="goBack()">&#8592; Voltar</button>
 
     <div class="container">
-        <div class="header"></div>
+        <div class="header">
+            <h1>
+                Tiro ao alvo
+            </h1>
+        </div>
+
         <div class="content">
-            <div class="main-rectangle">
-                <div class="info-box">
-                    <p>Informação 1</p>
-                    <p>Informação 2</p>
-                </div>
+            <div class="middle-rectangle">
+                <img src="https://media.gettyimages.com/id/1330836779/pt/foto/tokyo-japan-md-ruman-shana-of-team-bangladesh-competes-in-the-1-32-eliminations-round-on-day.jpg?s=612x612&amp;w=gi&amp;k=20&amp;c=l4noZL9vmM0RVHts-lfwvjO7zchUpW9SZRO-yedDO7g=" alt="" width="200" height="282" />
             </div>
-            <div class="middle-rectangle"></div>
-            <div class="bottom-square"></div>
-            <button class="confirm-button" onclick="confirmar()">Confirmar</button>
+            <div><h2>Escolha uma opção: </h2></div>
+            <div class="button-group">
+                <a href="templates/pagina1.html" class="button">Cadastro</a>
+                <a href="html/pagina2.html" class="button">Classificação</a>
+                <a href="PartidaFrontV1.html" class="button">Mata Mata</a>
+                <a href="html/pagina4.html" class="button">Enviar Resultados</a>
+            </div>
         </div>
     </div>
 
-    <!-- Aqui será incluída a tabela gerada pelo Flask -->
-    <div class="container">
-        {{ table_html | safe }}
-    </div>
+    <div class="bottom-square">&nbsp;</div>
 
     <script>
         function confirmar() {
             alert("Botão Confirmar clicado!");
+        }
+
+        function goBack() {
+            window.history.back();
         }
     </script>
 </body>
