@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Atleta</title>
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body class="page-border">
     <button class="return-button" onclick="goBack()">&#8592; Voltar</button>
@@ -13,7 +13,7 @@
             <h1>Cadastro de Atleta</h1>
         </div>
         <div class="content">
-            <form action="/cadastro" method="post">
+            <form id="cadastroForm">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required><br>
                 <label for="idade">Idade:</label>
@@ -30,6 +30,34 @@
         function goBack() {
             window.history.back();
         }
+
+        document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const nacionalidade = document.getElementById('nacionalidade').value;
+            const colocacao = document.getElementById('colocacao').value;
+
+            fetch('http://localhost:5000/atletas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    idade: idade,
+                    nacionalidade: nacionalidade,
+                    colocacao: colocacao
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
     </script>
 </body>
 </html>
