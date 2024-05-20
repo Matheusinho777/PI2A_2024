@@ -24,6 +24,7 @@
                 <input type="text" id="colocacao" name="colocacao" required><br>
                 <button type="submit">Cadastrar</button>
             </form>
+            <div id="atletas"></div>
         </div>
     </div>
     <script>
@@ -38,7 +39,9 @@
             const nacionalidade = document.getElementById('nacionalidade').value;
             const colocacao = document.getElementById('colocacao').value;
 
-            fetch('http://localhost:5000/atletas', {
+            const serverUrl = 'http://localhost:5000/atletas'; // Endereço do servidor Flask
+
+            fetch(serverUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
