@@ -65,9 +65,12 @@
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('Houve um problema com o envio dos dados: ' + error.message);
-            });
-        });
+                let errorMessage = 'Houve um problema com o envio dos dados.';
+                if (error.message) {
+                    errorMessage += ' ' + error.message;
+    }
+                alert(errorMessage);
+});
     </script>
 </body>
 </html>
