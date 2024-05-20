@@ -67,6 +67,7 @@ def adicionar_atleta():
     novo_atleta = Atleta(nome, int(idade), nacionalidade, colocacao)
     cadastro.adicionar_atleta(novo_atleta)
 
+
     connection = get_db_connection()
     try:
         cadastro.salvar_atletas(connection)
