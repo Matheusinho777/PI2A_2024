@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #3c1b57;
-    color: #fff; 
+    background-color: #212226;
+    color: #CFF250; 
     margin: 0;
     padding: 0;
   }
@@ -18,7 +18,7 @@ body {
   }
   
   h1 {
-    color: #fff; 
+    color: #CFF250; 
   }
   
   .button-group {
@@ -70,8 +70,8 @@ body {
     position: absolute;
     top: 20px;
     left: 20px;
-    background-color: #4caf50;
-    color: #fff;
+    background-color: #CFF250;
+    color: #212226;
     padding: 10px;
     font-size: 16px;
     border: none;
@@ -101,7 +101,7 @@ body {
 .container {
     max-width: 600px;
     margin: 50px auto;
-    background-color: #3c8285;
+    background-color: #525259;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -129,7 +129,7 @@ body {
 /*botoes da pagina*/
 .button {
     display: inline-block;
-    background-color: #4caf50;
+    background-color: #CFF250;
     color: #e4e0e0;
     padding: 12px 24px;
     font-size: 16px;
