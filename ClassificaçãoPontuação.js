@@ -76,3 +76,49 @@ document.getElementById('aplicarPenalidade').addEventListener('click', () => {
     const somaFinal = document.getElementById('somaFinal');
     somaFinal.innerHTML = `Soma total das pontuações após aplicar as penalidades: ${tiroComArco.calcularSomaPontuacao()}`;
 });
+
+class Atleta {
+    constructor(name, pais) {
+        this.name = name;
+        this.pais = pais;
+    }
+}
+
+let pre_atleta ={
+  João: {
+    "pais": "Brasil"
+  },
+  Cleito: {
+    "pais": "Argentina"
+  },
+}
+    
+let atletas = [new Atleta("João", "Brasil")];
+
+function load_atletas() {
+  const serviceList = document.getElementById("service-list");
+  
+  Object.keys(pre_atleta).forEach(key => {
+            
+    const tr = document.createElement("tr");
+    tr.classList.add();
+    
+    const td1 = document.createElement("td");
+    td1.classList.add();
+    td1.textContent = key;
+    
+    const td = document.createElement("td");
+    td.classList.add();
+    td.textContent = pre_atleta[key].pais;
+
+    tr.appendChild(td1);
+    tr.appendChild(td);
+
+        serviceList.appendChild(tr);
+  });
+    
+}
+
+// Para carregar os atletas ao iniciar a página
+document.addEventListener('DOMContentLoaded', load_atletas);
+
