@@ -30,6 +30,8 @@
         <div class="button-container">
             <button onclick="registrarPontos(1)">Registrar Pontos para Jogador 1</button>
             <button onclick="registrarPontos(2)">Registrar Pontos para Jogador 2</button>
+            <button onclick="darCartaoVermelho(1)">Cartão Vermelho para Jogador 1</button>
+            <button onclick="darCartaoVermelho(2)">Cartão Vermelho para Jogador 2</button>
         </div>
         
         <div id="resultado"></div>
@@ -38,6 +40,13 @@
     <script>
         let pontuacaoJogador1 = 0;
         let pontuacaoJogador2 = 0;
+        let flechasJogador1 = 0;
+        let flechasJogador2 = 0;
+        let setsJogador1 = 0;
+        let setsJogador2 = 0;
+        let flechasValoresJogador1 = [];
+        let flechasValoresJogador2 = [];
+        const maxFlechas = 3;
 
         function registrarPontos(jogador) {
             const pontos = parseInt(document.getElementById('pontos').value);
@@ -48,16 +57,73 @@
             }
 
             if (jogador === 1) {
+                if (flechasJogador1 >= maxFlechas) {
+                    alert('Jogador 1 já lançou todas as flechas nesta rodada.');
+                    return;
+                }
                 pontuacaoJogador1 += pontos;
+                flechasValoresJogador1.push(pontos);
+                flechasJogador1++;
             } else if (jogador === 2) {
+                if (flechasJogador2 >= maxFlechas) {
+                    alert('Jogador 2 já lançou todas as flechas nesta rodada.');
+                    return;
+                }
                 pontuacaoJogador2 += pontos;
+                flechasValoresJogador2.push(pontos);
+                flechasJogador2++;
             }
 
-            document.getElementById('resultado').innerHTML = `
-                <p>Total de pontos do Jogador 1: ${pontuacaoJogador1}</p>
-                <p>Total de pontos do Jogador 2: ${pontuacaoJogador2}</p>
-                <p><strong>Vencedor: ${obterVencedor()}</strong></p>
+            if (flechasJogador1 === maxFlechas && flechasJogador2 === maxFlechas) {
+                let vencedor = obterVencedor();
+                if (vencedor === 'Empate') {
+                    setsJogador1++;
+                    setsJogador2++;
+                } else if (vencedor === document.getElementById('nomeJogador1').value || vencedor === 'Jogador 1') {
+                    setsJogador1 += 2;
+                } else {
+                    setsJogador2 += 2;
+                }
+
+                document.getElementById('resultado').innerHTML = `
+                    <p>Total de pontos do Jogador 1: ${pontuacaoJogador1}</p>
+                    <p>Total de pontos do Jogador 2: ${pontuacaoJogador2}</p>
+                    <p><strong>Vencedor da rodada: ${vencedor}</strong></p>
+                    <p>Sets do Jogador 1: ${setsJogador1}</p>
+                    <p>Sets do Jogador 2: ${setsJogador2}</p>
+                `;
+
+                if (setsJogador1 >= 6 || setsJogador2 >= 6) {
+                    document.getElementById('resultado').innerHTML += `
+                        <p><strong>Vencedor do jogo: ${setsJogador1 >= 6 ? document.getElementById('nomeJogador1').value || 'Jogador 1' : document.getElementById('nomeJogador2').value || 'Jogador 2'}</strong></p>
+                    `;
+                    resetarJogo();
+                } else if (setsJogador1 === 5 && setsJogador2 === 5) {
+                    alert('Empate nos sets! Rodada de desempate iniciada.');
+                    iniciarDesempate();
+                } else {
+                    resetarRodada();
+                }
+            } else {
+                document.getElementById('resultado').innerHTML = `
+                    <p>Total de pontos do Jogador 1: ${pontuacaoJogador1}</p>
+                    <p>Total de pontos do Jogador 2: ${pontuacaoJogador2}</p>
+                `;
+            }
+        }
+
+        function iniciarDesempate() {
+            flechasJogador1 = 0;
+            flechasJogador2 = 0;
+            pontuacaoJogador1 = 0;
+            pontuacaoJogador2 = 0;
+            flechasValoresJogador1 = [];
+            flechasValoresJogador2 = [];
+            document.getElementById('resultado').innerHTML += `
+                <p><strong>Rodada de desempate: cada jogador lança uma flecha</strong></p>
             `;
+            document.getElementById('pontos').max = 10;
+            document.getElementById('pontos').value = '';
         }
 
         function obterVencedor() {
@@ -71,6 +137,45 @@
             } else {
                 return 'Empate';
             }
+        }
+
+        function darCartaoVermelho(jogador) {
+            if (jogador === 1 && flechasValoresJogador1.length > 0) {
+                const maiorFlecha = Math.max(...flechasValoresJogador1);
+                pontuacaoJogador1 -= maiorFlecha;
+                flechasValoresJogador1.splice(flechasValoresJogador1.indexOf(maiorFlecha), 1);
+                alert('Cartão Vermelho para Jogador 1! A maior flecha foi anulada.');
+            } else if (jogador === 2 && flechasValoresJogador2.length > 0) {
+                const maiorFlecha = Math.max(...flechasValoresJogador2);
+                pontuacaoJogador2 -= maiorFlecha;
+                flechasValoresJogador2.splice(flechasValoresJogador2.indexOf(maiorFlecha), 1);
+                alert('Cartão Vermelho para Jogador 2! A maior flecha foi anulada.');
+            }
+
+            document.getElementById('resultado').innerHTML = `
+                <p>Total de pontos do Jogador 1: ${pontuacaoJogador1}</p>
+                <p>Total de pontos do Jogador 2: ${pontuacaoJogador2}</p>
+            `;
+        }
+
+        function resetarRodada() {
+            pontuacaoJogador1 = 0;
+            pontuacaoJogador2 = 0;
+            flechasJogador1 = 0;
+            flechasJogador2 = 0;
+            flechasValoresJogador1 = [];
+            flechasValoresJogador2 = [];
+        }
+
+        function resetarJogo() {
+            pontuacaoJogador1 = 0;
+            pontuacaoJogador2 = 0;
+            flechasJogador1 = 0;
+            flechasJogador2 = 0;
+            setsJogador1 = 0;
+            setsJogador2 = 0;
+            flechasValoresJogador1 = [];
+            flechasValoresJogador2 = [];
         }
 
         function goBack() {
