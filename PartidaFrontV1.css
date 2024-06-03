@@ -1,77 +1,83 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #212226;
-    color: #CFF250;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 h1 {
-    color: #CFF250;
-    margin-bottom: 20px;
+    color: #E2F263;
+    margin: 20px 0;
 }
+
 .container {
     background-color: #525259;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    max-width: 500px;
     width: 100%;
+    margin: 20px;
 }
+
+.container div {
+    margin-bottom: 15px;
+}
+
 label {
-    font-weight: bold;
     display: block;
     margin-bottom: 5px;
+    color: #E2F263;
 }
+
 input[type="text"], input[type="number"] {
     width: calc(100% - 20px);
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
 }
-button {
-    width: 48%;
-    padding: 10px;
-    margin: 5px 1%;
-    background-color: #CFF250;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-button:hover {
-    background-color: #0056b3;
-}
-#resultado {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #525259;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-}
+
 .button-container {
     display: flex;
     justify-content: space-between;
 }
-#btnVoltar {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    padding: 10px;
-    background-color: #CFF250;
-    color: #000;
-    border: none;
-    border-radius: 5px;
+
+button {
+    padding: 10px 20px;
+    border: 2px solid #525259;
+    border-radius: 4px;
+    background-color: #E2F263;
+    color: #212226;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 64px
+    transition: background-color 0.3s;
 }
-#btnVoltar:hover {
-    background-color: #0056b3;
+
+button:hover {
+    background-color: #45a049;
+}
+
+button#btnVoltar {
+    margin-right: 1800px;
+    margin-top: 15px;
+    background-color: #CFF250;
+}
+
+button#btnVoltar:hover {
+    background-color: #e53935;
+}
+
+#resultado {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #525259;
+    border-radius: 4px;
+    background-color: #525259;
+    font-size: 16px;
+    color: #E2F263;
 }
