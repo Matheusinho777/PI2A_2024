@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiro com Arco</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Tiro com Arco</h1>
+        <p>Insira a pontuação de cada uma das 72 flechas atiradas:</p>
+        <div id="pontuacoes"></div>
+        <button id="adicionarPontuacao">Adicionar Pontuação</button>
+        <button id="calcularSoma">Calcular Soma</button>
+        <div id="somaInicial"></div>
+        <div id="cartaoVermelho">
+            <p>O atleta recebeu um cartão vermelho?</p>
+            <button id="cartaoSim">Sim</button>
+            <button id="cartaoNao">Não</button>
+        </div>
+        <div id="quantidadeCartoes" style="display:none;">
+            <p>Quantos cartões vermelhos o atleta recebeu?</p>
+            <input type="number" id="inputCartoes" min="0">
+            <button id="aplicarPenalidade">Aplicar Penalidade</button>
+        </div>
+        <div id="pontuacoesFinais"></div>
+        <div id="somaFinal"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
